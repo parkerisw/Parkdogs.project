@@ -1,43 +1,164 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parker's Games</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      background: #000;
+      color: #0f0;
+    }
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+    header {
+      background: #000;
+      padding: 20px 40px;
+      border-bottom: 2px solid #0f0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    header h1 {
+      font-size: 2rem;
+      margin: 0;
+      color: #0f0;
+      text-shadow: 0 0 10px #0f0;
+    }
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    select {
+      padding: 8px;
+      border-radius: 5px;
+      border: 2px solid #0f0;
+      background: #000;
+      color: #0f0;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #000;
+      border: 2px solid #0f0;
+      border-radius: 8px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #0f0;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #0f0;
+    }
+
+    .card p {
+      margin: 10px 0 0;
+      font-size: 0.9rem;
+      color: #0f0;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💻 Parker's Games 💻</h1>
+  </header>
+
+  <main>
+    <div class="filters">
+ 
+    </div>
+
+    <div class="grid">
+      <div class="card" onclick="openSite('https://weslack.com/')">
+        <h2>WeSlack</h2>
+        <p></p>
+      </div>
+
+      <div class="card" onclick="openSite('https://pizzaedition.one/')">
+        <h2>Pizza Edition</h2>
+        <p></p>
+      </div>
+
+      <div class="card" onclick="openSite('https://gas.education/')">
+        <h2>Utopia</h2>
+        <p></p>
+      </div>
+
+      <div class="card" onclick="openSite('https://quackprep.org/')">
+        <h2>Quackprep</h2>
+        <p></p>
+      </div>
+
+      <div class="card" onclick="openSite('https://algebra.learnnexus.one')">
+        <h2>Reds Exploit Corner</h2>
+        <p></p>
+      </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function openSite(url) {
+      let newTab = window.open("about:blank", "_blank");
+      if (newTab) {
+        newTab.document.write(`
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>Loading...</title>
+            <style>
+              html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow: hidden;
+                background: black;
+              }
+              iframe {
+                border: none;
+                width: 100%;
+                height: 100%;
+              }
+            </style>
+          </head>
+          <body>
+            <iframe src="${url}"></iframe>
+          </body>
+          </html>
+        `);
+        newTab.document.close();
+      } else {
+        window.location.href = url;
+      }
+    }
+  </script>
+</body>
+</html>
